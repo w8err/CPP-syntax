@@ -2,41 +2,58 @@
 using namespace std;
 
 class Dept {
-	int size;
-	int* scores;
-public:
-	Dept(int size) {						// 생성자
-		this->size = size;
-		scores = new int[size];
-	}
-	Dept(const Dept& dept);			// 복사생성자
-	~Dept();								// 소멸자
-	int getSize() { return size; }
-	// size만큼 키보드에서 정수를 읽어 scores 배열에 저장
-	void read();
-	// index의 학생의 성적이 60보다 크면 true 리턴
-	bool isOver60(int index);
-};
+    int size;
+    int* scores;
 
-Dept::Dept(const Dept& dept) { }
-Dept::~Dept() { }
-void Dept::read() { }
-bool Dept::isOver60(int index) { }
+public:
+    Dept(int size) {
+        this->size = size;
+        scores = new int[size];
+    }
+
+    Dept(const Dept& dept) {
+        size = dept.size;
+        scores = new int[size];
+        for (int i = 0; i < size; i++) {
+            scores[i] = dept.scores[i];
+        }
+    }
+
+    ~Dept() {
+        delete[] scores;
+    }
+
+    int getSize() {
+        return size;
+    }
+
+    void read() {
+        for (int i = 0; i < size; i++) {
+            cout << "학생 " << (i + 1) << "의 성적을 입력하세요: ";
+            cin >> scores[i];
+        }
+    }
+
+    bool isOver60(int index) {
+        return scores[index] > 60;
+    }
+};
 
 // dept 학과에 60점 이상으로 통과하는 학생의 수 리턴
 int countPass(Dept dept) {
-	int count = 0;
-	for (int I = 0; I < dept.getSize(); i++) {
-		if (dept.isOver60(i)) count++;
-	}
-	return count;
+    int count = 0;
+    for (int i = 0; i < dept.getSize(); i++) {
+        if (dept.isOver60(i))
+            count++;
+    }
+    return count;
 }
 
-
-
 int main() {
-	Dept com(10);
-	com.read();
-	int n = countPass(com);
-	cout << "60점 이상은 " << n << "명";
+    int num = 0;
+    cout << "학생 수 입력 "; cin >> num;
+    Dept com(num);
+    com.read();
+    int n = countPass(com);
+    cout << "60점 이상은 " << n << "명";
 }

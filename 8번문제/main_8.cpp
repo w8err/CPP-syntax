@@ -11,8 +11,8 @@ public:
 	void print() { cout << text << endl; }
 };
 
-Buffer& append(Buffer& buf, string next) {
-	buf.add(next);
+Buffer& append(Buffer& buf, string text) {
+	buf.add(text);
 	return buf;
 }
 
