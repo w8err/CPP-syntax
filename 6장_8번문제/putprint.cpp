@@ -9,6 +9,32 @@ public:
 	static void put(string t, string m);
 	static void print(string t = " ");
 };
+int Trace::count = 0;
+string Trace::tag[100];
+string Trace::msg[100];
+
+void Trace::put(string t, string m) {
+	tag[count] = t;
+	msg[count] = m;
+	count++;
+}
+
+void Trace::print(string t) {
+	if (t == " ") {
+		cout << "----- 모든 Trace 정보를 출력합니다 ----- " << endl;
+		for (int i = 0; i < count; i++) {
+			cout << tag[i] << ":" << msg[i] << endl;
+		}
+	}
+	else {
+		cout << "----- 모든 Trace 정보를 출력합니다 -----" << endl;
+		for (int i = 0; i < count; i++) {
+			if (tag[i] == t) {
+				cout << tag[i] << ":" << msg[i] << endl;
+			}
+		}
+	}
+}
 
 void f() {
 	int a, b, c;
